@@ -8,4 +8,6 @@ git commit -m "message"
 git push
 git pull
 git status
-git 
+
+
+git clone https://cmedicherla.github.io/ ((((this is the path copied)
