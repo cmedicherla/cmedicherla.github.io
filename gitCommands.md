@@ -1,5 +1,7 @@
 # Bash/git commands
 
+Source: https://www.kernel.org/pub/software/scm/git/docs/
+
 ## Misc
 1. `cd ..`
 1. `ls`
