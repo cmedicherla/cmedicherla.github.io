@@ -1,22 +1,28 @@
-git add <filename>
+# Bash/git commands
 
-git add *
+## Misc
+1. `cd ..`
+1. `ls`
+1. `cat > filename.txt ----- Text ----- CTRL-D to save and exit`
+1. `touch filename.txt`
+1. `echo?`
 
-git add .
+## Initialize a git respository
+1. `git init`
+1. `git init dir`
 
-git add -A
+## Add to index
+1. `git add <filename>`
+1. `git add *`
+1. `git add .`
+1. `git add -A`
 
-git commit -m "message"
+## Commit index
+From index to create new commit object pointing to index changes and set branch to point to new commit 
+1. `git commit -m "message"`
+1. `git commit -a -m "message"`
 
-git push
-
-git pull
-
-git status
-
-<p>
-$ cat > myfile.txt
-Now, just type whatever you want in the file:
-Hello World!
-CTRL-D to save and exit
-</p>
+## misc
+1. `git push`
+1. `git pull`
+1. `git status`
