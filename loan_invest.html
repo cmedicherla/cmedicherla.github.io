@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan & Investment Calculator</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  label {
+    display: inline-block;
+    width: 200px;
+  }
+  input {
+    width: 150px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .chart-container {
+    flex: 1;
+    max-width: 60%;
+    margin-right: 20px;
+  }
+  .summary-container {
+    flex: 1;
+    max-width: 40%;
+  }
+</style>
+</head>
+<body>
+  <h1>Loan & Investment Calculator</h1>
+  <form id="loanForm">
+    <label for="initialBalance">Initial Loan Balance:</label>
+    <input type="number" id="initialBalance" required><br>
+
+    <label for="initialLumpSum">Initial Lump Sum Payment:</label>
+    <input type="number" id="initialLumpSum" value="0"><br>
+
+    <label for="interestRate">Loan Interest Rate (%):</label>
+    <input type="number" id="interestRate" required><br>
+
+    <label for="monthlyPayment">Monthly Loan Payment:</label>
+    <input type="number" id="monthlyPayment" required><br>
+
+    <!-- Investment Fund Inputs -->
+    <h2>Investment Fund</h2>
+    <label for="initialInvestment">Initial Investment:</label>
+    <input type="number" id="initialInvestment" required><br>
+
+    <label for="monthlyInvestment">Monthly Contribution:</label>
+    <input type="number" id="monthlyInvestment" required><br>
+
+    <label for="investmentInterestRate">Investment Interest Rate (%):</label>
+    <input type="number" id="investmentInterestRate" required><br>
+
+    <button type="button" onclick="calculateBalance()">Calculate</button>
+  </form>
+
+  <!-- Container for plot and summary table -->
+  <div class="container">
+    <!-- Plot container -->
+    <div class="chart-container">
+      <h2>Loan Balance vs. Investment Growth</h2>
+      <canvas id="balanceChart"></canvas>
+    </div>
+    <!-- Summary container -->
+    <div class="summary-container">
+      <h2>Summary</h2>
+      <table>
+        <tr>
+          <td>Total Loan Amount Paid:</td>
+          <td id="totalAmountPaid"></td>
+        </tr>
+        <tr>
+          <td>Total Interest Accrued:</td>
+          <td id="totalInterestAccrued"></td>
+        </tr>
+        <tr>
+          <td>Loan Duration:</td>
+          <td id="loanDuration"></td>
+        </tr>
+        <tr>
+          <td>Total Investment Growth:</td>
+          <td id="totalInvestmentGrowth"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('balanceChart').getContext('2d');
+    let chart;
+
+    function calculateBalance() {
+      const initialBalance = parseFloat(document.getElementById('initialBalance').value);
+      const initialLumpSum = parseFloat(document.getElementById('initialLumpSum').value);
+      const interestRate = parseFloat(document.getElementById('interestRate').value);
+      const monthlyPayment = parseFloat(document.getElementById('monthlyPayment').value);
+
+      let balance = initialBalance - initialLumpSum;
+      const labels = ['Month 0'];
+      const data = [balance.toFixed(2)];
+      let months = 0;
+      let totalAmountPaid = initialLumpSum;
+
+      while (balance > 0) {
+        const interest = (balance * (interestRate / 100)) / 12;
+        balance = balance + interest - monthlyPayment;
+        months++;
+        labels.push(`Month ${months}`);
+        data.push(balance > 0 ? balance.toFixed(2) : 0);
+        totalAmountPaid += monthlyPayment;
+      }
+
+      const totalInterestAccrued = totalAmountPaid - initialBalance;
+
+      // Investment fund variables
+      const initialInvestment = parseFloat(document.getElementById('initialInvestment').value);
+      const monthlyInvestment = parseFloat(document.getElementById('monthlyInvestment').value);
+      const investmentInterestRate = parseFloat(document.getElementById('investmentInterestRate').value);
+
+      // Initialize investment growth
+      let investmentBalance = initialInvestment;
+      const investmentData = [investmentBalance.toFixed(2)];
+
+      // Calculate investment growth over the same timeframe as loan repayment
+      for (let i = 1; i <= months; i++) {
+        const investmentInterest = (investmentBalance * (investmentInterestRate / 100)) / 12;
+        investmentBalance = investmentBalance + investmentInterest + monthlyInvestment;
+        investmentData.push(investmentBalance.toFixed(2));
+      }
+
+      const totalInvestmentGrowth = investmentBalance - (initialInvestment + (monthlyInvestment * months));
+
+      // Update summary table
+      document.getElementById('totalAmountPaid').textContent = totalAmountPaid.toFixed(2);
+      document.getElementById('totalInterestAccrued').textContent = totalInterestAccrued.toFixed(2);
+      document.getElementById('loanDuration').textContent = months + ' months';
+      document.getElementById('totalInvestmentGrowth').textContent = totalInvestmentGrowth.toFixed(2);
+
+      // Destroy existing chart if it exists
+      if (chart) {
+        chart.destroy();
+      }
+
+      // Create combined chart for loan balance and investment growth
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Loan Balance',
+              data: data,
+              borderColor: 'blue',
+              fill: false
+            },
+            {
+              label: 'Investment Growth',
+              data: investmentData,
+              borderColor: 'green',
+              fill: false
+            }
+          ]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Amount'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Months'
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
