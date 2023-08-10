@@ -90,16 +90,20 @@
           <td id="totalAmountPaid"></td>
         </tr>
         <tr>
-          <td>Total Interest Accrued:</td>
-          <td id="totalInterestAccrued"></td>
-        </tr>
-        <tr>
           <td>Loan Duration:</td>
           <td id="loanDuration"></td>
         </tr>
         <tr>
+          <td>Total Interest Accrued:</td>
+          <td id="totalInterestAccrued"></td>
+        </tr>
+        <tr>
           <td>Total Investment Growth:</td>
           <td id="totalInvestmentGrowth"></td>
+        </tr>
+        <tr>
+          <td>Total Investment Fund Value:</td>
+          <td id="totalInvestmentValue"></td>
         </tr>
       </table>
     </div>
@@ -149,12 +153,14 @@
       }
 
       const totalInvestmentGrowth = investmentBalance - (initialInvestment + (monthlyInvestment * months));
+      const totalInvestmentValue = investmentBalance;
 
       // Update summary table
       document.getElementById('totalAmountPaid').textContent = totalAmountPaid.toFixed(2);
       document.getElementById('totalInterestAccrued').textContent = totalInterestAccrued.toFixed(2);
       document.getElementById('loanDuration').textContent = months + ' months';
       document.getElementById('totalInvestmentGrowth').textContent = totalInvestmentGrowth.toFixed(2);
+      document.getElementById('totalInvestmentValue').textContent = totalInvestmentValue.toFixed(2);
 
       // Destroy existing chart if it exists
       if (chart) {
