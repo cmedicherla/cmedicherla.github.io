@@ -1,0 +1,147 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GuruMed - Your Path to Medical School Success</title>
+<style>
+  /* ... Your existing CSS styles ... */
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: ;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: black;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      background-color: ;
+      box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      margin: 0 1.5rem;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #1E90FF;
+    }
+    section {
+      padding: 2rem;
+      text-align: center;
+    }
+    .highlight {
+      color: #1E90FF;
+      font-weight: bold;
+    }
+    .btn {
+      background-color: #1E90FF;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #007acc;
+    }
+    .testimonial {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin: 1rem;
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">GuruMed</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Services</a>
+      <a href="#">Why Choose Us</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+  <section>
+    <h1>Welcome to GuruMed</h1>
+    <p>Your Path to Medical School Success</p>
+  </section>
+  <section>
+    <h2>About Us</h2>
+    <p>At GuruMed, we understand the journey to medical school can be daunting. That's why we're here to guide you every step of the way. Our team of experienced physicians has been through the process and knows what it takes to stand out in the competitive world of medical school admissions.</p>
+  </section>
+  <section>
+    <h2>Our Services</h2>
+    <div class="highlight">Personal Statement Review</div>
+    <p>Crafting the perfect personal statement is crucial. Our experts will provide comprehensive feedback to ensure your story shines through, leaving a lasting impression on admissions committees.</p>
+    <div class="highlight">Interview Prep</div>
+    <p>Nail your medical school interviews with our tailored preparation sessions. We'll conduct mock interviews, provide constructive feedback, and equip you with the confidence to excel.</p>
+    <div class="highlight">Medical School Decision Making</div>
+    <p>Choosing the right medical school is a pivotal decision. Our advisors will help you analyze your options, considering factors such as curriculum, location, and culture, to find the best fit for your aspirations.</p>
+    <div class="highlight">Overall Guidance</div>
+    <p>From AMCAS applications to acceptance letters, we're by your side. Our holistic guidance covers every aspect of the application process, helping you present your achievements and qualities effectively.</p>
+  </section>
+  <section>
+    <h2>Why Choose GuruMed?</h2>
+
+      Expert Physician Advisors: Our team consists of physicians who have been through the very journey you're embarking on. Benefit from their firsthand experience and personalized advice.</li>
+      Tailored Approach: We recognize that each student is unique. Our services are customized to your strengths, goals, and challenges, ensuring you receive the support you truly need.</li>
+      Proven Success: Many of our past clients have gained admissions to top medical schools. Join our success stories and let us help you achieve your dreams.</li>
+
+  </section>
+
+  <section>
+      <h2>Get Started on Your Journey Today</h2>
+      <p>Ready to take the first step towards your medical career? Fill out our contact form to schedule a free consultation. Let's discuss your goals and how GuruMed can help you make them a reality.</p>
+      <form action="submit_form.php" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="1" required></textarea>
+        <button class="btn" type="submit">Submit</button>
+      </form>
+    </section>
+
+    <section>
+    <h2>Testimonials</h2>
+    <div class="testimonial">
+      <p>"GuruMed's guidance was invaluable in my application journey..."</p>
+      <p>- Sarah K., Medical Student at XYZ University</p>
+    </div>
+    <div class="testimonial">
+      <p>"The mock interviews were incredibly helpful. I walked into my actual interview with confidence and poise, thanks to GuruMed."</p>
+      <p>- John M., Admitted to ABC Medical School</p>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2023 GuruMed. All rights reserved.</p>
+  </footer>
+</body>
+</html>
