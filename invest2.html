@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investment Growth Calculator</title>
+  <!-- Include Plotly library -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <h1>Investment Growth Calculator</h1>
+
+  <label for="principal">Initial Investment:</label>
+  <input type="number" id="principal" step="any" required><br>
+
+  <label for="monthlyContribution">Monthly Contribution:</label>
+  <input type="number" id="monthlyContribution" step="any" required><br>
+
+  <label for="interestRate">Annual Interest Rate (%):</label>
+  <input type="number" id="interestRate" step="any" required><br>
+
+  <label for="months">Number of Months:</label>
+  <input type="number" id="months" step="any" required><br>
+
+  <label for="changeMonth">Month of Contribution Change:</label>
+  <input type="number" id="changeMonth" step="any" required><br>
+
+  <label for="newMonthlyContribution">New Monthly Contribution:</label>
+  <input type="number" id="newMonthlyContribution" step="any" required><br>
+
+  <button onclick="calculateInvestment()">Calculate</button>
+
+  <div id="plot"></div>
+  <div id="summary"></div>
+
+  <script>
+    function calculateInvestment() {
+      const principal = parseFloat(document.getElementById("principal").value);
+      const initialMonthlyContribution = parseFloat(document.getElementById("monthlyContribution").value);
+      const interestRate = parseFloat(document.getElementById("interestRate").value) / 100;
+      const months = parseFloat(document.getElementById("months").value);
+      const changeMonth = parseFloat(document.getElementById("changeMonth").value);
+      const newMonthlyContribution = parseFloat(document.getElementById("newMonthlyContribution").value);
+      const monthlyRate = interestRate / 12;
+
+      const investmentData = [];
+      let balance = principal;
+      let currentMonthlyContribution = initialMonthlyContribution;
+
+      for (let month = 1; month <= months; month++) {
+        if (month >= changeMonth) {
+          currentMonthlyContribution = newMonthlyContribution;
+        }
+
+        balance *= (1 + monthlyRate);
+        balance += currentMonthlyContribution;
+        investmentData.push(balance);
+      }
+
+      // Create a plot
+      const plotDiv = document.getElementById("plot");
+      Plotly.newPlot(plotDiv, [{
+        x: Array.from({ length: months }, (_, i) => i + 1),
+        y: investmentData,
+        mode: 'lines',
+        type: 'scatter',
+        name: 'Investment Growth'
+      }]);
+
+      // Display summary
+      const initialContributions = initialMonthlyContribution * (changeMonth - 1);
+      const newContributions = newMonthlyContribution * (months - changeMonth + 1);
+      const finalInterest = balance - principal - initialContributions - newContributions;
+      const summaryDiv = document.getElementById("summary");
+      summaryDiv.innerHTML = `
+        <h2>Summary</h2>
+        <p>Final Interest Accumulated: $${finalInterest.toFixed(2)}</p>
+        <p>Final Investment Balance: $${balance.toFixed(2)}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
